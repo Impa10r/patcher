@@ -6,7 +6,12 @@ import (
 	"os"
 )
 
-const MAX_FILE_SIZE = 10_000_000
+const (
+	MAX_FILE_SIZE = 10_000_000
+	ORIGINAL      = "original.bin"
+	MODDED        = "modded.bin"
+	TARGET        = "target.bin"
+)
 
 type Differences struct {
 	Offset int
@@ -87,11 +92,7 @@ func applyDifferences(target string, diffs []Differences) error {
 }
 
 func main() {
-	original := "original.bin"
-	modded := "modded.bin"
-	target := "target.bin"
-
-	differences, err := findDifferences(original, modded)
+	differences, err := findDifferences(ORIGINAL, MODDED)
 	if err != nil {
 		log.Fatalf("Error finding differences: %v", err)
 	}
@@ -100,7 +101,7 @@ func main() {
 		log.Printf("Difference at offset %d, length %d, bytes: %v", diff.Offset, diff.Length, diff.Bytes)
 	}
 
-	if err := applyDifferences(target, differences); err != nil {
+	if err := applyDifferences(TARGET, differences); err != nil {
 		log.Fatalf("Error applying differences: %v", err)
 	}
 
