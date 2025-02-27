@@ -31,12 +31,12 @@ func findDifferences(src, dst string) ([]Differences, error) {
 	bufferSrc := make([]byte, MAX_FILE_SIZE)
 	bufferDst := make([]byte, MAX_FILE_SIZE)
 
-	nSrc, errSrc := sourceFile.Read(bufferSrc)
+	nSrc, errSrc := SOURCEFile.Read(bufferSrc)
 	if errSrc != nil && errSrc != io.EOF {
 		return nil, errSrc
 	}
 
-	nDst, errDst := destinationFile.Read(bufferDst)
+	nDst, errDst := DESTINATIONFile.Read(bufferDst)
 	if errDst != nil && errDst != io.EOF {
 		return nil, errDst
 	}
@@ -50,7 +50,7 @@ func findDifferences(src, dst string) ([]Differences, error) {
 			if differencesFound {
 				// save patch
 				diffs = append(diffs, Differences{
-					Offset: i - len(bytes),
+					Offset: i,
 					Length: len(bytes),
 					Bytes:  bytes,
 				})

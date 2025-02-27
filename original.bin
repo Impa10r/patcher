@@ -50,7 +50,7 @@ func findDifferences(src, dst string) ([]Differences, error) {
 			if differencesFound {
 				// save patch
 				diffs = append(diffs, Differences{
-					Offset: i - len(bytes),
+					Offset: i,
 					Length: len(bytes),
 					Bytes:  bytes,
 				})
